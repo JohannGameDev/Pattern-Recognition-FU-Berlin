@@ -35,19 +35,25 @@ def getImages(fileName):
 			tempImage.append(tempRow)	
 		images.append(tempImage)	
 	return images
-print(getLabelList("data/train-labels.idx1-ubyte"))
+#print(getLabelList("data/train-labels.idx1-ubyte"))
 
-print (getLabelList('data/t10k-labels.idx1-ubyte'))
+#print (getLabelList('data/t10k-labels.idx1-ubyte'))
+def saveImages(byteImageList):
+	i = 0 
+	for byteImage in byteImageList:
+		i = i+1
+		#print(byteImage)
+		im = Image.new("L",(28,28))
+		im.putdata(byteImage) 
+		im.save("images/number" + str(i) +  ".png",'PNG')
+		#print(list(im.getdata()))
 
-decodedImageList = []
-byteImageList =  getImages("data/t10k-images.idx3-ubyte")
-i = 0 
-for byteImage in byteImageList:
-	i = i+1
-	print(byteImage)
-	im = Image.new("L",(28,28))
-	im.putdata(byteImage) 
-	im.save("images/number" + str(i) +  ".png",'PNG')
-	print(list(im.getdata()))
-	decodedImageList.append(im)
 
+#byteImageList =  getImages("data/t10k-images.idx3-ubyte")
+def kNearestNeighbours(k,trainingImages,trainingLabels):
+	
+def getEuclideanDistance(vector1,vector2):
+	eDistance = 0 
+	for i in range(0,len(vector1))
+		eDistance += (vector1[i] * vector1[i]) - (vector2[i] * vector2[i])
+	eDistance = 
