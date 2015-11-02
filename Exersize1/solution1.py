@@ -1,4 +1,5 @@
 import struct
+import math
 import Image
 import numpy as np
 import cv2
@@ -50,10 +51,52 @@ def saveImages(byteImageList):
 
 
 #byteImageList =  getImages("data/t10k-images.idx3-ubyte")
-def kNearestNeighbours(k,trainingImages,trainingLabels):
-	
+def kNearestNeighbours(k,trainingImages,trainingLabels,whatIsIt):
+	print(k)
+	print(whatIsIt[1]) 
+	bytesPerImage = 28 * 28 
+	resultList = []#save euclidean distance and which Label it has in a tupel as a list
+	bucketList = [0,0,0,0,0,0,0,0,0]#A List which saves how many neighbours which specific index there are
+	for i in range(0,len(trainingImage)/28):#prepare 2d-array of bytes to one-diminsial array(26*26 Vector)
+		currentTrainingsVector = []
+		for j in range(0,28): #28 each row from byteImage
+			currentVector.append(trainingImages[j+i*bytesPerImage] #index j define the row of the Image which is located at 28*28(one Image) * i(current processed iamage)	
+			resultList.append((getEuclideanDistance(currentTrainingsVector,whatIsIt[0]),trainingLabels[i])
+	resultList.sort(key=lambda tup: tup[0])#sort by euclidean distance
+	for l in range(0,k):#for every k - neighbours save how much of which label there are 
+		bucketList[resultList[k][1]] +=1	
+	myMax = max(bucketList)#dicision
+	winner = [i for i, j in enumerate(a) if j == m]#making
+	return winner
+
 def getEuclideanDistance(vector1,vector2):
 	eDistance = 0 
-	for i in range(0,len(vector1))
-		eDistance += (vector1[i] * vector1[i]) - (vector2[i] * vector2[i])
-	eDistance = 
+	for i in range(0,len(vector1)):#for every element of both vector subtract them and add it to ediStance
+		eDistance += math.pow((vector1[i] - vector2[i]),2) 
+	eDistance = math.sqrt(eDistance) #now take the sqaure root
+	return eDistance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
