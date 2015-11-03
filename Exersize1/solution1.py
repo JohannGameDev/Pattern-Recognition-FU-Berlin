@@ -51,11 +51,11 @@ def saveImages(byteImageList):
 
 #byteImageList =  getImages("data/t10k-images.idx3-ubyte")
 def kNearestNeighbours(k,trainingImages,trainingLabels,whatIsIt):
-    print(k)
+    #print(k)
     #print(whatIsIt[1])
     bytesPerImage = 28 * 28
     resultList = []#save euclidean distance and which Label it has in a tupel as a list
-    bucketList = [0,0,0,0,0,0,0,0,0]#A List which saves how many neighbours which specific index there are
+    bucketList = [0,0,0,0,0,0,0,0,0,0]#A List which saves how many neighbours which specific index there are
     for i in range(0,len(trainingImages)):#prepare 2d-array of bytes to one-diminsial array(26*26 Vector)
         #print("Which Image: " + str(i) + "lenList: "+ str(len(trainingImages))+ "len labels" + str(len(trainingLabels)))
         currentTrainingsVector = []
@@ -71,6 +71,7 @@ def kNearestNeighbours(k,trainingImages,trainingLabels,whatIsIt):
     for l in range(0,k):#for every k - neighbours save how much of which label there are 
         labelTupel = resultList[l]
         label = labelTupel[1]
+        print(label)
         bucketList[label] +=1
     #print(bucketList)
     myMax = max(bucketList)#dicision
@@ -87,13 +88,20 @@ def getEuclideanDistance(vector1,vector2):
 def aufgabe2():
     byteImages = getImages("data/t10k-images.idx3-ubyte")
     labels = getLabelList("data/t10k-labels.idx1-ubyte")
-    kNeighbours = [1,3,11]
-    resultList = [0,0,0]
+    kNeighbours = [1,3,11,37]
+    resultList = [0,0,0,0]
     for k in kNeighbours:
-        for n in range(0,100):
+        for n in range(4765,4875):
             tupel = ([j for i in byteImages[n] for j in i],labels[n])
-            if(n == kNearestNeighbours(k,byteImages,labels,tupel)):
-                resultList[k] += 1
+            print("Search" + str(labels[n]))
+            found = kNearestNeighbours(k,byteImages,labels,tupel)[0]
+            print("found " + str(found))
+            if(labels[n] == found):
+                print("YEAH")
+                print(kNeighbours.index(k))
+                resultList[kNeighbours.index(k)] += 1
+            print("---------------")
     print(resultList)
+
 
 aufgabe2()
