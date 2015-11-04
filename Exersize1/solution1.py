@@ -1,3 +1,4 @@
+import random
 import struct
 import math
 import Image
@@ -85,13 +86,77 @@ def getEuclideanDistance(vector1,vector2):
     eDistance = math.sqrt(eDistance) #now take the sqaure root
     return eDistance
 
+def getAllVectorList(imageList):
+    allVectors = []
+    for i in range(0,len(trainingImages)):#prepare 2d-array of bytes to one-diminsial array(26*26 Vector)
+            currentTrainingsVector = []
+            myImage=trainingImages[i]
+            for j in range(0,27): #28 each row from byteImage
+                myRow = myImage[j]
+                for e in range(0,27):
+                    currentTrainingsVector.append(myRow[e])
+            allVectors.append(currentTrainingsVector)
+    return allVectors
+
+def minIndex(myList):
+    myIndex = -1
+    value = -1
+    for element in myList:
+       if(value < element):
+        myIndex = myList.index(element)
+    return myIndex
+
+
+def kMeansMain(k,iteration,vectorList,labelList):
+    kcluster = []
+    generatedVectorList = []
+    for generateRnd in range(0,k):
+       rnd = random.randint(0,len(vectorList))
+       kcluster.append(vectorList[rnd],labelList[rnd]) #a list with k tupel in form(rndVector,label)
+    for vector in vectorList:
+        euclideanList = []
+        for cluster in kcluster:
+            eDistance = getEuclideanDistance(cluster,vector)
+            euclideanList.append(eDistance)   
+        minIndex = minIndex(euclideanList)
+        generatedVectorList.append(minIndex,vector,vectorList.index(vector)) #generated vectorList with (linked cluster,vector itself,label)
+
+
+def getZeroVector():
+    zeroVector = []
+    for i in range(0,28*28):
+        zeroVector.apend(0)
+    return zeroVector
+
+def addVectors(vec1,vec2):
+    for i in range(0,len(vec1)):
+        vec1[i] += vec2[i]
+    return vec1
+
+def nextIteration(kcluster,vectorList,iteration):
+    middlePoints = []
+    for i in range(0,len(kcluster)):
+        middlePoints.append((getZeroVector(),0)) #list of tupels (middlePoint,numberOfVectors)
+    for data in vectorList:
+        middlePoints[data[0]][0] = addVectors(middlePoints[data[0]][0],data[1])
+        middlePoints[data[0]][1] += 1
+    for middlePoint in middlePoints:
+        for e in middlePoint[0]:
+            e = e/ middlePoint[1]
+
+def aufgabe1():
+     print("Aufgabe1")
+     byteImages = getImages("data/t10k-images.idx3-ubyte")
+     print(byteImages[len(byteImages)-1]) #vorletzer datenpunkt
+
 def aufgabe2():
+    print("aufgabe2")
     byteImages = getImages("data/t10k-images.idx3-ubyte")
     labels = getLabelList("data/t10k-labels.idx1-ubyte")
     kNeighbours = [1,3,11,37]
     resultList = [0,0,0,0]
     for k in kNeighbours:
-        for n in range(4765,4875):
+        for n in range(4865,4875):
             tupel = ([j for i in byteImages[n] for j in i],labels[n])
             print("Search" + str(labels[n]))
             found = kNearestNeighbours(k,byteImages,labels,tupel)[0]
@@ -103,5 +168,12 @@ def aufgabe2():
             print("---------------")
     print(resultList)
 
+def aufgabe3():
+   iterations = 100
+   for k in [9,10,20]:
+    print(k)
+   #kMeansMain(k,iterations,getAllVectors("data/t10k-images.idx3-ubyte"),getLabelList("data/10k-labels.idx1-ubyte")) 
 
+aufgabe1()
 aufgabe2()
+aufgabe3()
