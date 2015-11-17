@@ -1,10 +1,31 @@
 
+
 Covariance of class A(In Image of the plot Blue) is 
-[[ 1.28129424  1.28129424]
- [ 1.28129424  1.28129424]]
+
+[[ 1.06189087  1.06189087]
+ [ 1.06189087  1.06189087]]
+ 
+The Correlationmatrix(Pearson-Korrelationcoefficient) of Class A is 
+
+[[ 1.  1.]
+ [ 1.  1.]]
+
 Covariance of class B(In Image of the plot Red)is 
-[[ 2.03736414 -1.12165384]
- [-1.12165384  2.30659215]]
+
+[[ 1.96608056 -0.71128683]
+ [-0.71128683  1.78265685]]
+
+ The Correlationmatrix(Pearson-Korrelationcoefficient) of Class B is 
+
+[[ 1.         -0.37993581]
+ [-0.37993581  1.        ]]
+
 Covariance of class C(In Image of the plot Green)is 
-[[ 0.0786475  -0.02383952]
- [-0.02383952  2.60458539]]
+
+[[ 0.11121807 -0.0228415 ]
+ [-0.0228415   3.75507231]]
+ 
+The Correlationmatrix(Pearson-Korrelationcoefficient)of Class C is 
+
+[[ 1.         -0.03534499]
+ [-0.03534499  1.        ]]

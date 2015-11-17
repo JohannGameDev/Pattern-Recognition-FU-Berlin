@@ -7,6 +7,7 @@ def main():
    task2b(task2aSolution)
 
 def task2a():
+    print("Task 2a started")
     numberOfSamples = 100
     meanArray1 = np.array([5,10])
     meanArray2 = np.array([5,5])
@@ -26,7 +27,7 @@ def task2a():
     plt.axis('equal')
     # save Plot 
     plt.savefig("plot.png", dpi=96)
-    plt.show()
+    #plt.show()
     return([generatedPointClass1,generatedPointClass2,generatedPointClass3])
 
 def task2b(valueArray):
@@ -36,9 +37,15 @@ def task2b(valueArray):
     covClassA = np.cov(valueArray[0].T)
     covClassB = np.cov(valueArray[1].T)
     covClassC = np.cov(valueArray[2].T)
-    covAMessage = "\nCovariance of class A(In Image of the plot Blue) is \n"+np.array_str(covClassA)
-    covBMessage = "\nCovariance of class B(In Image of the plot Red)is \n"+np.array_str(covClassB)
-    covCMessage = "\nCovariance of class C(In Image of the plot Green)is \n"+np.array_str(covClassC)
-    f.write(covAMessage + covBMessage + covCMessage)
+    corrcoefClassA = np.corrcoef(valueArray[0].T)
+    corrcoefClassB = np.corrcoef(valueArray[1].T)
+    corrcoefClassC = np.corrcoef(valueArray[2].T)
+    covAMessage = "\n\nCovariance of class A(In Image of the plot Blue) is \n\n"+np.array_str(covClassA)
+    covBMessage = "\n\nCovariance of class B(In Image of the plot Red)is \n\n"+np.array_str(covClassB)
+    covCMessage = "\n\nCovariance of class C(In Image of the plot Green)is \n\n"+np.array_str(covClassC)
+    corrcoefAMessage = "\n \nThe Correlationmatrix(Pearson-Korrelationcoefficient) of Class A is \n\n"+np.array_str(corrcoefClassA)
+    corrcoefBMessage = "\n\n The Correlationmatrix(Pearson-Korrelationcoefficient) of Class B is \n\n"+np.array_str(corrcoefClassB)
+    corrcoefCMessage = "\n \nThe Correlationmatrix(Pearson-Korrelationcoefficient)of Class C is \n\n"+np.array_str(corrcoefClassC)
+    f.write(covAMessage +corrcoefAMessage+ covBMessage+corrcoefBMessage+  covCMessage+corrcoefCMessage)
     f.close()
 main()
