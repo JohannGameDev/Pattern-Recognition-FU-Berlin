@@ -24,10 +24,21 @@ def task2a():
     x,y = generatedPointClass3.T
     plt.plot(x,y,'x')
     plt.axis('equal')
+    # save Plot 
+    plt.savefig("plot.png", dpi=96)
     plt.show()
     return([generatedPointClass1,generatedPointClass2,generatedPointClass3])
 
-def task2b():
-    print("Here will be task 2b")
-
+def task2b(valueArray):
+    startMessage = "Task 2b started"
+    print(startMessage)
+    f = open("task2b","w")
+    covClassA = np.cov(valueArray[0].T)
+    covClassB = np.cov(valueArray[1].T)
+    covClassC = np.cov(valueArray[2].T)
+    covAMessage = "\nCovariance of class A(In Image of the plot Blue) is \n"+np.array_str(covClassA)
+    covBMessage = "\nCovariance of class B(In Image of the plot Red)is \n"+np.array_str(covClassB)
+    covCMessage = "\nCovariance of class C(In Image of the plot Green)is \n"+np.array_str(covClassC)
+    f.write(covAMessage + covBMessage + covCMessage)
+    f.close()
 main()

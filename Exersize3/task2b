@@ -1,0 +1,10 @@
+
+Covariance of class A(In Image of the plot Blue) is 
+[[ 1.28129424  1.28129424]
+ [ 1.28129424  1.28129424]]
+Covariance of class B(In Image of the plot Red)is 
+[[ 2.03736414 -1.12165384]
+ [-1.12165384  2.30659215]]
+Covariance of class C(In Image of the plot Green)is 
+[[ 0.0786475  -0.02383952]
+ [-0.02383952  2.60458539]]
