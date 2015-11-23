@@ -1,2 +1,7 @@
 **script
 **images
+*.fls
+*.fdb_latexmk
+*.log
+*.tex.latexmain
+*.aux
