@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 def main():
    task2aSolution = task2a()
    task2b(task2aSolution)
+   task2c()
 
 def task2a():
     print("Task 2a started")
@@ -48,4 +49,8 @@ def task2b(valueArray):
     corrcoefCMessage = "\n \nThe Correlationmatrix(Pearson-Korrelationcoefficient)of Class C is \n\n"+np.array_str(corrcoefClassC)
     f.write(covAMessage +corrcoefAMessage+ covBMessage+corrcoefBMessage+  covCMessage+corrcoefCMessage)
     f.close()
+
+def task2c():
+   
+
 main()
