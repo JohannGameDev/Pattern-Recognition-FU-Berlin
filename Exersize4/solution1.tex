@@ -102,9 +102,9 @@ The formula for determinant is $$
     \end{vmatrix}
     =(\frac{5}{2} - \lambda * 1 - \lambda) - (2 * 2) =\lambda^2 - \frac{5}{2}\lambda - \lambda + \frac{5}{2} - 4 =  \lambda^2 -\frac{7}{2}\lambda -\frac{3}{2} \\
     \text{p-q formula} \\
-    \lambda_{1,2} =  -\frac{-\frac{7}{2}}{2} \pm \sqrt{\frac{-\frac{7}{2}}{2} - (-\frac{3}{2})} = \frac{7}{4} \pm \sqrt{\frac{49}{16}+ \frac{24}{16}} = \frac{7}{2} \pm \frac{\sqrt{73}}{4} \\
-    \lambda_1 \approx \frac{7}{2} + 2 \approx \frac{11}{2} \\
-    \lambda_2 \approx \frac{7}{2} - 2 \approx \frac{4}{2} 
+    \lambda_{1,2} =  -\frac{-\frac{7}{2}}{2} \pm \sqrt{\frac{-\frac{7}{2}}{2} - (-\frac{3}{2})} = \frac{7}{4} \pm \sqrt{\frac{49}{16}+ \frac{24}{16}} = \frac{7}{4} \pm \frac{\sqrt{73}}{4} \\
+    \lambda_1 \approx \frac{7}{4} + 2 \approx \frac{15}{4} \\
+    \lambda_2 \approx \frac{7}{4} - 2 \approx \frac{-8}{4}\approx \frac{-8}{4}\approx -2  
 \end{gather*}
 
 
@@ -126,7 +126,7 @@ Insert $\lambda_1$ in $(C - I\lambda_1) * x = 0 $
        1 & 0 \\
             0 & 1 
     \end{pmatrix} 
-    * \frac{11}{2} \right ) * x = 
+    * \frac{15}{4} \right ) * x = 
     \left (
         \begin{pmatrix}
             \frac{5}{2} & 2 \\
@@ -134,20 +134,20 @@ Insert $\lambda_1$ in $(C - I\lambda_1) * x = 0 $
     \end{pmatrix}
     -
    \begin{pmatrix}
-       \frac{11}{2}  & 0 \\
-       0 & \frac{11}{2} 
+       \frac{15}{4}  & 0 \\
+       0 & \frac{15}{4} 
     \end{pmatrix} 
 \right ) * x  \\
 = \begin{pmatrix}
-            \frac{5}{2} -\frac{11}{2} & 2 \\
-            2 & 1 -\frac{11}{2} 
+            \frac{5}{2} -\frac{15}{4} & 2 \\
+            2 & 1 -\frac{15}{4} 
         \end{pmatrix} * = 0 
 \end{gather*}
-Now 
+Now  write generell formula
 \begin{gather*}
  \begin{pmatrix}
-            \frac{5}{2} -\frac{11}{2} & 2 \\
-            2 & 1 -\frac{11}{2} 
+            \frac{5}{2} -\frac{15}{4} & 2 \\
+            2 & 1 -\frac{15}{4} 
         \end{pmatrix}  
         *
         \begin{pmatrix}
@@ -157,24 +157,87 @@ Now
         =
         0
 \end{gather*}
-Make a 
+Make a system of linear equations
 \begin{align}
-    (\frac{5}{2} -\frac{11}{2})x_1 + 2x_2 = 0  \\
-    2x_1 +(1 -\frac{11}{2})x_2 = 0 
+    (\frac{5}{2} -\frac{15}{4})x_1 + 2x_2 = 0  \\
+    2x_1 +(1 -\frac{15}{4})x_2 = 0 
 \end{align}
 \begin{align}
-    -3x_1 + 2x_2 = 0  \\
-    2x_1 +\frac{9}{2}x_2 = 0 
+    -\frac{5}{4}x_1 + 2x_2 = 0  \\
+    2x_1 -\frac{11}{4}x_2 = 0 
 \end{align}
 \begin{gather*}
-    (4) \Leftrightarrow x_1 = \frac{9}{4}x_2 \\
-    x_1 in (3) -\frac{27}{4} 
+    x_1 = \frac{11}{8}\\
+    x_2 = 1 \\
+    \text{the first eigenvector is} x = 
+    \begin{pmatrix}
+        \frac{11}{8} \\
+        1 
+   \end{pmatrix}
 \end{gather*}
-\section{Conclusions}\label{conclusions}
-We worked hard, and achieved very little.
+And now the second eigenvector!
+Insert $\lambda_2$ in $(C - I\lambda_2) * x = 0 $
+\begin{gather*}
+    \left (
+        \begin{pmatrix}
+            \frac{5}{2} & 2 \\
+            2 & 1 
+    \end{pmatrix}
+    -
+   \begin{pmatrix}
+       1 & 0 \\
+            0 & 1 
+    \end{pmatrix} 
+    * -2  \right ) * x = 
+    \left (
+        \begin{pmatrix}
+            \frac{5}{2} & 2 \\
+            2 & 1 
+    \end{pmatrix}
+    -
+   \begin{pmatrix}
+       -2  & 0 \\
+       0 & -2 
+    \end{pmatrix} 
+\right ) * x  \\
+= \begin{pmatrix}
+    \frac{5}{2} + 2  & 2 \\
+    2 & 1 +2  
+        \end{pmatrix} * = 0 
+\end{gather*}
+Now  write generell formula
+\begin{gather*}
+ \begin{pmatrix}
+     \frac{5}{2} +2 & 2 \\
+     2 & 1 +2 
+        \end{pmatrix}  
+        *
+        \begin{pmatrix}
+            x_1 \\
+            x_2
+        \end{pmatrix}
+        =
+        0
+\end{gather*}
+Make a system of linear equations
+\begin{align}
+    (\frac{5}{2} + 2 + 2x_2 = 0  \\
+    2x_1 +1 + 2 = 0 
+\end{align}
+\begin{align}
+    \frac{9}{2}x_1 + 2x_2 = 0  \\
+    2x_1 + 3x_2  = 0 
+\end{align}
+\begin{gather*}
+    x_1 = -\frac{5}{8}\\
+    x_2 = 1 \\
+    \text{the second eigenvector is} x = 
+    \begin{pmatrix}
+        \frac{5}{8}\
+        1
+   \end{pmatrix}
+\end{gather*}
 
-\bibliographystyle{abbrv}
-\bibliography{main}
+\subsection{e)}
 
 \end{document}
-This is never printed
