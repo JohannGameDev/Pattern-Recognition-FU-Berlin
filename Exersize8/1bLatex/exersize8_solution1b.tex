@@ -1,0 +1,29 @@
+\title{Solution for Exersize 4}
+\author{Johann Strama and Gorgin Torabi}
+\date{\today}
+\documentclass[12pt]{article}
+\usepackage{mathtools}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Solution for Exersize 8b
+\end{abstract}
+
+\section{Question 1b}
+
+Set $p( \overrightarrow{x},\beta) = 0.5$ and take the $\beta^T = (-1.6,5.1)$ that was calculated after 1000 iterations and x is $\overrightarrow{x}^T = (1,x)$
+\newline
+\begin{math}
+    \\
+    p(\overrightarrow{x},\beta) = \frac{exp(\beta^T \overrightarrow{x})}{1+exp(\beta^T \overrightarrow{x})} \\
+    0.5 =  \frac{exp((-1.6,5.1) \overrightarrow{x})}{1+exp((-1.6,5.1)  \overrightarrow{x})} \\
+    0.5 = \frac{exp(-1.6+ 5.1x)}{1+exp(-1.6+ 5.1x)} \\
+    \ln{0.5} = \ln{\frac{exp(-1.6+ 5.1x)}{1+exp(-1.6+ 5.1x)}} \\
+    \ln{0.5} = \ln{exp(-1.6+ 5.1x)}- \ln{1+exp(-1.6+ 5.1x)} \\
+    \ln{0.5} = -1.6+5.1x - \ln{1+exp(-1.6+ 5.1x)}\\
+    \underline{\underline{x = 0.313725}}
+\end{math}
+\newline
+Ab 0.31 mm Groe{ss}e der Sandkoerner ist es wahrscheinlicher Spinnen anzutreffen.
+\end{document}
