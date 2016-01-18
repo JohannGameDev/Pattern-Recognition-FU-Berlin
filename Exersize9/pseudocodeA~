@@ -5,6 +5,7 @@ Programm:
 W2^ = [[rndNumber,rndNumber],[rndNumber,rndNumber],[rndNumber,rndNumber]]
 W1^ = [[rndNumber],[rndNumber],[rndNumber]]
 totalError = 1
+gamma = 10.0 //Given from exersize
 S = [[0,0,0],[0,1,1],[1,0,1],[1,1,0]] // each of this subarrrays are in form [bool,bool,xorResult]
 While e >= 0.0001:
 choose random row s from S  (for example S[0] = [0,0,0] )
@@ -16,4 +17,6 @@ O1^ = O1 append 1 // append bias
 O2 = sigmoid( O1^* W2)
 D2 = [[O2 * 1-O2]]
 e = 1/2 * (O2 -t)*(O2 -t)
-E = O2 -t //Derivative   	
+E = O2 -t //Derivative of e
+
+   	
