@@ -1,0 +1,366 @@
+AdaBoost and the Super Bowl of Classifiers
+A Tutorial Introduction to Adaptive Boosting
+Raúl Rojas
+Computer Science Department
+Freie Universität Berlin
+Christmas 2009
+Abstract
+This note provides a gentle introduction to the AdaBoost algorithm
+used for generating strong classifiers out of weak classifiers. The mathematical derivation of the algorithm has been reduced to the bare essentials.
+
+1
+
+Motivation
+
+Assume that you are working on a two-class pattern recognition problem for
+which you are given a large pool of classifiers (which we call experts). You want
+to submit a still better classifier for a pattern recognition competition, the Super
+Bowl of Classifiers. Therefore, you want to put together a “dream team” of
+experts – let’s say a combination of eleven classifiers extracted from the pool. For
+a given pattern xi each expert classifier kj can emit an opinion kj (xi ) ∈ {−1, 1}
+and the final decision of the committee K of experts is sign(C(xi )), the sign of
+the weighted sum of expert opinions, where
+C(xi ) = α1 k1 (xi ) + α2 k2 (xi ) + · · · + α11 k11 (xi ),
+and k1 , k2 , . . . , k11 denote the eleven experts selected from the pool of classifiers.
+The constants α1 , α2 , . . . , α11 are the weights we assign to the opinion of each
+expert in the committee. Remember that every expert kj just answers “yes”
+(+1) or “no” (−1) to a classification problem. The arrangement discussed here
+is a linear combination of classifiers followed by a nonlinear decision (the sign
+function).
+The AdaBoost (adaptive boosting) algorithm was proposed in 1995 by Yoav
+Freund and Robert Shapire as a general method for generating a strong classifier
+out of a set of weak classifiers [1], [3]. AdaBoost works even when the classifiers
+come from a continuum of potential classifiers (such as neural networks, linear
+discriminants, etc.) However, for the sake of simplicity, let us assume that the
+
+1
+
+pool of experts is finite, that it contains L classifiers, and that it is provided as
+input to AdaBoost. This is the case, for example, with the well-known method
+of face recognition introduced by Viola and Jones [2].
+
+2
+
+Scouting
+
+If we want to go to the classifiers competition we have to take care of: a) scouting
+prospective team members, b) drafting them, and c) assigning a weight to their
+contribution to the team.
+Scouting is done by testing the classifiers in the pool using a training set T
+of N multidimensional data points xi . For each point xi we have a label yi = 1
+or yi = −1. We test and rank all classifiers in the expert pool by charging a
+cost eβ any time a classifier fails (a miss), and a cost e−β every time a classifier
+provides the right label (a success or “hit”). We require β > 0 so that misses are
+penalized more heavily than hits. It might seem strange to penalize a hit with
+non-zero cost, but as long as the penalty of success is smaller than the penalty for
+a miss (e−β < eβ ) everything is fine (see Problem 1). This kind of error function
+different from the usual squared Euclidian distance to the classification target
+is called an exponential loss function. AdaBoost uses exponential error loss as
+error criterion.
+When we test the L classifiers in the pool, we build a matrix S (S for
+scouting) in which we record the misses (with a 1) and hits (with a zero) of each
+classifier. Row i in the matrix is reserved for the data point xi . Column j is
+reserved for the j-th classifier in the pool:
+Classifiers
+x1
+x2
+x3
+..
+.
+
+1
+0
+0
+1
+..
+.
+
+2
+1
+0
+1
+..
+.
+
+···
+···
+···
+···
+
+L
+1
+1
+0
+..
+.
+
+xN
+
+0
+
+0
+
+···
+
+0
+
+In the example above, the first classifier succeeds with the data points x1 , x2
+and xN . It fails with the data point x3 . It is easy to read from the table for
+which data points the other classifiers fail or succeed.
+The main idea of AdaBoost is to proceed systematically by extracting one
+classifier from the pool in each of M iterations. The elements in the data set
+are weighted according to their current relevance (or urgency) at each iteration.
+At the beginning, all elements are assigned the same weight (just 1, or 1/N if
+we want to have a total sum of 1 for all weights). As the drafting progresses,
+the more difficult examples, that is, those where the committee still performs
+badly, are assigned larger and larger weights. The drafting process concentrates
+2
+
+in selecting new classifiers for the committee focusing on those which can help
+with the still misclassified examples. It would be superfluous to draft a classifier
+which always, or almost always, produces the same opinion as a classifier already
+drafted. If we wanted to draft a classifier twice, we could just as well duplicate
+its weight. The best “team players” are those which can provide new insights
+to the committee. Classifiers being drafted should complement each other in an
+optimal way. Not everybody can be the quarterback.
+
+3
+
+Drafting
+
+In each iteration we need to rank all classifiers, so that we can select the current
+best out of the pool. At the m-th iteration we have already included m − 1
+classifiers in the committee and we want to draft the next one. The current
+linear combination of classifiers is
+C(m−1) (xi ) = α1 k1 (xi ) + α2 k2 (xi ) + · · · + αm−1 km−1 (xi )
+and we want to extend it to
+Cm (xi ) = C(m−1) (xi ) + αm km (xi ).
+At the first iteration (m = 1), C(m−1) is the zero function. We define the total
+cost, or total error, of the extended classifier as the exponential loss
+E=
+
+N
+X
+
+e−yi (C(m−1) (xi )+αm km (xi ))
+
+i=1
+
+where αm and km are yet to be determined in an optimal way. Since our
+intention is to draft km we rewrite the above expression as
+N
+X
+
+E=
+
+(m) −yi αm km (xi ))
+
+wi
+
+e
+
+(1)
+
+i=1
+
+where
+(m)
+
+wi
+
+= e−yi C(m−1) (xi )
+
+(2)
+
+(1)
+wi
+
+for i = 1, . . . , N . In the first iteration
+= 1 for i = 1, . . . , N . During later
+iterations, the vector w(m) represents the weight assigned to each data point in
+the training set at iteration m. We can split the sum in Eq. 1 into two sums
+X
+X
+(m)
+(m)
+E=
+wi e−αm +
+wi eαm
+yi 6=km (xi )
+
+yi =km (xi )
+
+This means that the total cost is the weighted cost of all hits plus the weighted
+cost of all misses. Writing the first summand as Wc e−αm and the second as
+We eαm , we simplify the notation to
+E = Wc e−αm + We eαm
+3
+
+(3)
+
+For the selection of km the exact value of αm > 0 is irrelevant, since for a
+fixed αm minimizing E is equivalent to minimizing eαm E and because
+eαm E = Wc + We e2αm
+Since e2αm > 1, we can rewrite the above expression as
+eαm E = (Wc + We ) + We (e2αm − 1)
+Now, (Wc + We ) is the total sum W of the weights of all data points, that
+is, a constant in the current iteration. The right hand side of the equation
+is minimized when at the m-th iteration we pick the classifier with the lowest
+total cost We (that is the lowest rate of weighted error). Intuitively this makes
+sense, the next draftee, km , should be the one with the lowest penalty given the
+current set of weights.
+
+4
+
+Weighting
+
+Having picked the m-th member of the committee we need to determine its
+weight αm . From Eq. 3 we immediately see that
+dE
+= −Wc e−αm + We eαm
+dαm
+Equating this expression to zero and multiplying by eαm we obtain
+−Wc + We e2αm = 0
+The optimal αm is thus:
+αm
+
+1
+= ln
+2
+
+
+
+Wc
+We
+
+
+
+Remembering that W is the total sum of weights, we can rewrite the expression
+above as
+
+
+
+
+W − We
+1 − em
+1
+1
+αm = ln
+= ln
+2
+We
+2
+em
+Where em = We /W , is the percentage rate of error given the weights of the
+data points.
+
+5
+
+Pseudocode
+
+Given a training set T of data points xi and their labels yi in a two class problem
+(1)
+(+1,-1), we assign initial weights wi = 1 to all data points xi . We want to draft
+a committee of M classifiers from a pool of classifiers. We perform M iterations.
+At each iteration we call W the sum of weights of all data points, and We the
+4
+
+sum of weights of those data points where the classifier being considered yields
+the wrong label.
+AdaBoost
+For m = 1 to M
+1. Select and extract from the pool of classifiers the classifier km which minimizes
+X
+(m)
+We =
+wi
+yi 6=km (xi )
+
+2. Set the weight αm of the classifier to
+
+
+1 − em
+1
+αm = ln
+2
+em
+where em = We /W
+3. Update the weights of the data points for the next iteration. If km (xi ) is
+a miss, set
+r
+1 − em
+(m+1)
+(m) αm
+(m)
+wi
+= wi e
+= wi
+em
+otherwise
+(m+1)
+wi
+
+=
+
+(m)
+wi e−αm
+
+=
+
+(m)
+wi
+
+r
+
+em
+1 − em
+
+Some comments about this pseudocode formulation of AdaBoost are pertinent. The pool of classifiers in Step 1 can be substituted by a family of classifiers,
+one of whose members is trained to minimize the error function given the current
+weights. That is, the pool of classifiers does not need to be given in advance, it
+only needs to ideally exist. If indeed a finite set of classifiers is given, we only
+need to test the classifiers once for each data point. The scouting matrix S can
+be reused at each iteration, multiplying the transposed vector of weights w(m)
+with S in order to determine We for each classifier in the pool.
+Regarding the weights, it is possible to reformulate the weight update step
+so that only misses lead to a weight modification (see Problem 3).
+Note that the weight vector w(m) is constructed iteratively. It could be
+recomputed completely at every iteration according to Eq. 2, but the iterative
+construction is more efficient and simple to implement.
+Note also, that a classifier which does not perform better than chance (i.e.,
+for which em = 1/2) receives a weight of zero. A perfect classifier (em = 0) would
+receive an infinite weight, since it would be the only committee member that
+we need. A perfect liar (em = 1) would receive a negative infinite weight. We
+just reverse its decision every time and draft it as the only committee member.
+
+5
+
+6
+
+Problems
+1. Show that if we assign cost a to misses and cost b to hits, where a > b > 0,
+we can rewrite such costs as a = cd and b = c−d for constants c and d. That
+is, exponential loss costs of the type eαm and e−αm do not compromise
+generality.
+2. Show that normalizing the weights of the data points at each iteration is
+irrelevant
+3. If we leave the weights of hits unchanged, show how to correctly update
+the weights of misclassified data points.
+4. Define a two-class problem in the plane (for example, a circle of points
+inside a square) and build a strong classifier out of a pool of randomly
+generated linear discriminants of the type sign(ax1 + bx2 + c).
+5. Read the code of the implementation of the Viola-Jones algorithm in the
+OpenCV library.
+
+References
+[1] Y. Freund, and R. Shapire, “A decision-theoretic generalization of on-line
+learning and an application to boosting”, Proceedings of the Second European
+Conference on Computational Learning Theory, 1995, pp. 23–37.
+[2] Paul A. Viola, Michael J. Jones, “Robust Real-Time Face Detection”, ICCV
+2001, Vol. 2, pp. 747.
+[3] T. Hastie, R. Tibshirani, J. Friedman, The Elements of Statistical Learning,
+Springer-Verlag, New York, 2001.
+
+6
+
+

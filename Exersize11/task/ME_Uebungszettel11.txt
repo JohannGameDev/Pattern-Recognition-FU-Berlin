@@ -1,0 +1,36 @@
+11. Übungszettel Mustererkennung WS15/16
+Prof. Raúl Rojas, Fritz Ulbrich 
+Institut für Informatik, Freie Universität Berlin 
+Abgabe Online bis Mittwoch, 03.02.16, 10 Uhr 
+ 
+ 
+ 
+Bitte laden Sie ihre Lösung der Aufgaben als ​
+pdf­Datei​
+ hoch.  
+Quellcode können Sie optional als Archiv anhängen.  
+
+1. Aufgabe (7 Punkte):
+Trainieren Sie mit dem AdaBoost­Verfahren einen starken Klassifikator  C(xi)  für den Datensatz in 
+sparse_checkboard.csv. Das Format des Datensatzes ist: x­Koordinate, y­Koordinate, Klasse (1 oder ­1). 
+(AdaBoost­Tutorial: ​
+http://www.inf.fu­berlin.de/inst/ag­ki/rojas_home/documents/tutorials/adaboost4.pdf​
+ ) 
+ 
+Verwenden Sie dabei insgesamt 20 schwache Klassifikatoren  kj(xi) der Form: 
+ 
+k(x)  =  2 * (x.X  >  n) − 1  bzw.  
+k(x)  =  2 * (x.Y   >  n) − 1   
+mit  n  =  (0 ... 9)  
+ 
+(Der Klassifikator soll 1 zurückgeben, falls die entsprechende Koordinate von  x  kleiner als  n  ist, sonst ­1) 
+ 
+a) (2 Punkte) Geben Sie für alle  kj die Erkennungsrate auf dem (ungewichteten) Datensatz an.  
+b) (4 Punkte) Geben Sie für alle  kj die gelernten  αj an.  
+c) (2 Punkte) Geben Sie die Erkennungsrate von  C(xi) auf dem Datensatz an. 
+d) (2 Punkte) Erläutern Sie den Nutzen und die Funktionsweise von einer “cascade of classifiers”. 
+(Siehe z.B. ​
+https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola­cvpr­01.pdf​
+ )  
+
+

@@ -1,0 +1,13 @@
+The Classifiers are ordered in the folowing way : k_1(x) = 2* (x.X > 0 ) -1 ,k_2(x) = 2*(x.Y > 0) -1 ,k_3(x) = 2 * (x.X >  1) -1 , ... , k_20(x) = 2 * (x.Y > 9) -1 .The following written alpha's are in the same way as well as the classified ratio.
+Solution a)
+The  classification ratio(classifier got the right class) for the unweighted data set for k_1 ...k_m is 
+[ 0.5    0.5    0.402  0.4    0.498  0.5    0.4    0.4    0.5    0.498  0.4
+  0.4    0.5    0.5    0.4    0.4    0.5    0.5    0.4    0.402]
+Solution b)
+Alpha for k_1..k_m  printet out in the same order so alpha_1 ....alpha_m.
+[ 0.          0.         -0.19465862 -0.06936403 -0.00400002  0.
+ -0.06003866 -0.07970353  0.         -0.00355207 -0.12937082 -0.13756187
+  0.          0.         -0.17149946 -0.20299575  0.          0.
+ -0.06119393 -0.24618935]
+solution c)
+Correct classification of C for all points is : 340 of 500.So the ratio is 0.68
