@@ -83,7 +83,7 @@ def main():
 def my_min(indizeList,dontTakeThisIndizeList):
     currentMin = sys.maxint
     for i in range(len(indizeList)):
-            if indizeList[i] < currentMin and  not(i in(dontTakeThisIndizeList)):
+            if (indizeList[i] < currentMin or 1- indizeList[i] < currentMin)and  not(i in(dontTakeThisIndizeList)):
                 currentMin = indizeList[i]
                 currentMinIndize = i
     return currentMinIndize
